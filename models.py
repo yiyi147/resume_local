@@ -3,7 +3,7 @@ from typing import Optional, Any
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, JSON
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-DATABASE_URL = "sqlite:///vitaflow.db"
+DATABASE_URL = "sqlite:///resume_local.db"
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 Base = declarative_base()

@@ -6,7 +6,7 @@ from fastapi.responses import FileResponse
 from models import init_db
 from routes import router
 
-app = FastAPI(title="VitaFlow Local")
+app = FastAPI(title="ResumeLocal")
 
 app.add_middleware(
     CORSMiddleware,

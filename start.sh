@@ -1,5 +1,5 @@
 #!/bin/bash
-# VitaFlow 一键启动脚本
+# ResumeLocal 一键启动脚本
 # 用法: ./start.sh
 
 set -e
@@ -9,7 +9,7 @@ VENV_DIR="$PROJECT_DIR/backend/.venv"
 PORT=${1:-8000}
 
 echo "=========================================="
-echo "   VitaFlow 本地版 - 一键启动"
+echo "   ResumeLocal 本地版 - 一键启动"
 echo "=========================================="
 
 # 1. 检查 Python
