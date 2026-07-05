@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitaFlow - 简历编辑器</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div id="app">
+        <nav class="navbar">
+            <div class="logo">📄 VitaFlow</div>
+            <div class="nav-actions">
+                <button onclick="showResumeList()" class="btn btn-outline">我的简历</button>
+                <button onclick="showImportModal()" class="btn btn-outline">导入简历</button>
+                <button onclick="createNewResume()" class="btn btn-primary">新建简历</button>
+            </div>
+        </nav>
+        
+        <div id="resume-list-view" class="view active">
+            <div class="container">
+                <h1>我的简历</h1>
+                <div id="resume-list" class="resume-grid"></div>
+            </div>
+        </div>
+        
+        <div id="editor-view" class="view">
+            <div class="editor-layout">
+                <div class="editor-sidebar">
+                    <div class="sidebar-header">
+                        <button onclick="showResumeList()" class="btn btn-ghost">← 返回</button>
+                        <h2 id="editor-title">编辑简历</h2>
+                    </div>
+                    
+                    <div class="editor-sections">
+                        <div class="section-nav" id="section-nav">
+                            <!-- Rendered dynamically -->
+                        </div>
+                        
+                        <div id="editor-content" class="editor-content"></div>
+                    </div>
+                    
+                    <div class="editor-actions">
+                        <button onclick="saveResume()" class="btn btn-primary btn-full">保存</button>
+                        <div class="export-buttons">
+                            <button onclick="exportPDF()" class="btn btn-outline">导出 PDF</button>
+                            <button onclick="exportWord()" class="btn btn-outline">导出 Word</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="editor-preview">
+                    <div class="preview-toolbar">
+                        <div class="template-selector">
+                            <label>模板:</label>
+                            <select id="template-select" onchange="changeTemplate(this.value)">
+                                <option value="modern">现代简约</option>
+                                <option value="classic">经典正式</option>
+                                <option value="tech">科技风格</option>
+                                <option value="creative">创意双栏</option>
+                            </select>
+                        </div>
+                        <div class="zoom-controls">
+                            <button onclick="setPreviewZoom(previewZoom-0.1)" class="btn btn-ghost btn-sm" title="缩小">−</button>
+                            <span id="zoom-level" class="zoom-label">100%</span>
+                            <button onclick="setPreviewZoom(previewZoom+0.1)" class="btn btn-ghost btn-sm" title="放大">+</button>
+                            <button onclick="setPreviewZoom(1)" class="btn btn-ghost btn-sm" title="重置">重置</button>
+                        </div>
+                    </div>
+                    <div id="preview-frame" class="preview-frame">
+                        <iframe id="preview-iframe"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="import-modal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>导入简历</h2>
+                    <button onclick="closeImportModal()" class="btn btn-ghost">×</button>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-desc">上传 PDF 或 Word 文件，自动解析内容并套用模板</p>
+                    <div class="upload-area" id="upload-area">
+                        <input type="file" id="file-input" accept=".pdf,.docx,.doc" style="display:none;" onchange="handleFileSelect(event)">
+                        <button onclick="document.getElementById('file-input').click()" class="btn btn-outline">
+                            选择文件
+                        </button>
+                        <p class="upload-hint">支持 PDF、DOCX 格式</p>
+                    </div>
+                    <div id="import-preview" style="display:none;">
+                        <h3>解析预览</h3>
+                        <div id="import-data"></div>
+                        <div class="modal-actions">
+                            <button onclick="closeImportModal()" class="btn btn-outline">取消</button>
+                            <button onclick="confirmImport()" class="btn btn-primary">确认导入</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="custom-modal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>添加自定义模块</h2>
+                    <button onclick="closeCustomModal()" class="btn btn-ghost">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>模块标题</label>
+                        <input id="custom-title" placeholder="例如：语言能力、证书资质" class="form-input">
+                    </div>
+                    <div class="modal-actions">
+                        <button onclick="closeCustomModal()" class="btn btn-outline">取消</button>
+                        <button onclick="confirmAddCustom()" class="btn btn-primary">添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/static/app.js"></script>
+</body>
+</html>
