@@ -9,3 +9,4 @@ storage/exports/
 server.log
 .DS_Store
 node_modules/
+backend/.venv/lib/python3.9/site-packages/playwright/
